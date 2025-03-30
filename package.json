@@ -1,0 +1,24 @@
+{
+  "name": "traetyping",
+  "version": "1.0.0",
+  "description": "A typing speed test application",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -o",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "typing",
+    "speed",
+    "test"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "vite": "^4.4.9"
+  }
+}

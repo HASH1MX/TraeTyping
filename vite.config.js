@@ -1,6 +1,7 @@
 // vite.config.js
 export default {
   root: './',
+  base: './', // Set base to relative path for GitHub Pages
   publicDir: 'public',
   build: {
     outDir: 'dist',

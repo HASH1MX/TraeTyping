@@ -6,6 +6,16 @@ const wpmElement = document.getElementById('wpm');
 const accuracyElement = document.getElementById('accuracy');
 const restartButton = document.getElementById('restart');
 const resultElement = document.getElementById('result');
+const resultsContainer = document.getElementById('results-container');
+const finalWpmElement = document.getElementById('final-wpm');
+const finalAccuracyElement = document.getElementById('final-accuracy');
+const chartContainer = document.getElementById('chart-container');
+const testTypeElement = document.getElementById('test-type');
+const rawWpmElement = document.getElementById('raw-wpm');
+const rawCpmElement = document.getElementById('raw-cpm');
+const charCountElement = document.getElementById('char-count');
+const consistencyElement = document.getElementById('consistency');
+const timeTakenElement = document.getElementById('time-taken');
 
 // Game variables
 let words = [];
@@ -19,6 +29,10 @@ let incorrectWords = 0;
 let totalKeystrokes = 0;
 let correctKeystrokes = 0;
 let timeLimit = 60; // Default time in seconds
+let wpmHistory = []; // Track WPM over time
+let wpmValues = []; // Store all WPM values for consistency calculation
+let incorrectChars = 0;
+let correctChars = 0;
 
 // Common English words for the typing test
 const commonWords = [
@@ -44,6 +58,10 @@ function initGame() {
     incorrectWords = 0;
     totalKeystrokes = 0;
     correctKeystrokes = 0;
+    incorrectChars = 0;
+    correctChars = 0;
+    wpmHistory = [];
+    wpmValues = [];
     
     // Reset timer
     timerElement.textContent = timeLimit;
@@ -54,6 +72,9 @@ function initGame() {
     
     // Clear result
     resultElement.textContent = '';
+    
+    // Hide results container
+    resultsContainer.classList.remove('show');
     
     // Display words
     displayWords();
@@ -102,7 +123,7 @@ function displayWords() {
                             letterElement.classList.add('incorrect-letter');
                         }
                     }
-                } else if (i === letterIndex) {
+                } else if (i === letterIndex && letterIndex < word.length) {
                     // Add current-letter class to the current letter position
                     letterElement.classList.add('current-letter');
                 }
@@ -110,6 +131,14 @@ function displayWords() {
             
             letterElement.textContent = word[i];
             wordElement.appendChild(letterElement);
+        }
+        
+        // Add cursor after the last letter when the word is completed
+        if (index === wordIndex && letterIndex === word.length) {
+            const cursorElement = document.createElement('span');
+            cursorElement.classList.add('letter', 'current-letter');
+            cursorElement.innerHTML = '&nbsp;'; // Add a space character
+            wordElement.appendChild(cursorElement);
         }
         
         textDisplay.appendChild(wordElement);
@@ -146,6 +175,12 @@ function updateWPM(elapsedTime) {
     // Update accuracy
     const accuracy = totalKeystrokes > 0 ? Math.round((correctKeystrokes / totalKeystrokes) * 100) : 100;
     accuracyElement.textContent = `${accuracy}%`;
+    
+    // Record WPM for the chart (every second)
+    if (elapsedTime % 1 === 0) {
+        wpmHistory.push({ x: elapsedTime, y: wpm });
+        wpmValues.push(wpm);
+    }
 }
 
 // End the game
@@ -161,11 +196,14 @@ function endGame() {
     // Calculate accuracy
     const accuracy = totalKeystrokes > 0 ? Math.round((correctKeystrokes / totalKeystrokes) * 100) : 100;
     
-    // Display result
+    // Display simple result
     resultElement.textContent = `WPM: ${wpm} | Accuracy: ${accuracy}%`;
     
     // Disable input field
     inputField.blur();
+    
+    // Show detailed results
+    showResults(wpm, accuracy, elapsedTime);
 }
 
 // Handle input
@@ -186,6 +224,7 @@ inputField.addEventListener('input', (e) => {
         // Word completed correctly
         correctWords++;
         correctKeystrokes += currentWord.length + 1; // +1 for space
+        correctChars += currentWord.length;
         
         // Move to next word
         wordIndex++;
@@ -213,12 +252,14 @@ inputField.addEventListener('input', (e) => {
             for (let i = 0; i < trimmedValue.length; i++) {
                 if (trimmedValue[i] !== currentWord[i]) {
                     isCorrect = false;
+                    incorrectChars++;
                     break;
                 }
             }
             
             if (isCorrect) {
                 correctKeystrokes++;
+                correctChars++;
             }
             
             // Update letter index
@@ -305,3 +346,64 @@ inputField.addEventListener('keydown', (e) => {
         restartButton.click();
     }
 });
+
+// Show detailed results
+function showResults(wpm, accuracy, elapsedTime) {
+    // Set main stats
+    finalWpmElement.textContent = wpm;
+    finalAccuracyElement.textContent = `${accuracy}%`;
+    
+    // Set test type
+    testTypeElement.textContent = 'words';
+    
+    // Calculate raw WPM (all keystrokes)
+    const rawWpm = Math.round((totalKeystrokes / 5) / (elapsedTime / 60));
+    rawWpmElement.textContent = `${rawWpm} wpm`;
+    
+    // Calculate CPM (Characters Per Minute)
+    const cpm = Math.round(totalKeystrokes / (elapsedTime / 60));
+    rawCpmElement.textContent = cpm;
+    
+    // Character count (correct/incorrect/total)
+    charCountElement.textContent = `${correctChars}/${incorrectChars}/${correctChars + incorrectChars}`;
+    
+    // Calculate consistency
+    let consistency = 100;
+    if (wpmValues.length > 0) {
+        const avgWpm = wpmValues.reduce((sum, val) => sum + val, 0) / wpmValues.length;
+        const squaredDiffs = wpmValues.map(val => Math.pow(val - avgWpm, 2));
+        const variance = squaredDiffs.reduce((sum, val) => sum + val, 0) / wpmValues.length;
+        const stdDev = Math.sqrt(variance);
+        consistency = Math.max(0, Math.min(100, Math.round(100 - (stdDev / avgWpm) * 100)));
+    }
+    consistencyElement.textContent = `${consistency}%`;
+    
+    // Format time taken
+    const minutes = Math.floor(elapsedTime / 60);
+    const seconds = elapsedTime % 60;
+    timeTakenElement.textContent = minutes > 0 ? 
+        `${minutes}:${seconds.toString().padStart(2, '0')}` : 
+        `${seconds}s`;
+    
+    // Create chart
+    if (wpmHistory.length > 0) {
+        // Ensure we have at least two data points for the chart
+        if (wpmHistory.length === 1) {
+            wpmHistory.push({x: elapsedTime, y: wpmHistory[0].y});
+        }
+        
+        // Initialize chart
+        chartContainer.innerHTML = '';
+        const chart = new SimpleChart(chartContainer, {
+            height: 150,
+            lineColor: '#4dd0e1',
+            animate: true
+        });
+        
+        // Set chart data
+        chart.setData(wpmHistory);
+    }
+    
+    // Show results container
+    resultsContainer.classList.add('show');
+}

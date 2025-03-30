@@ -42,8 +42,51 @@
             <button id="restart">restart</button>
             <div class="result" id="result"></div>
         </div>
+        
+        <div id="results-container" class="results-container">
+            <div class="results-header">
+                <div class="main-stat">
+                    <span class="stat-label">wpm</span>
+                    <span id="final-wpm" class="stat-value">0</span>
+                </div>
+                <div class="main-stat">
+                    <span class="stat-label">acc</span>
+                    <span id="final-accuracy" class="stat-value">0%</span>
+                </div>
+            </div>
+            
+            <div id="chart-container" class="chart-container"></div>
+            
+            <div class="detailed-stats">
+                <div class="stat-box">
+                    <span class="stat-box-label">test type</span>
+                    <span id="test-type" class="stat-box-value">words</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box-label">other</span>
+                    <span id="raw-wpm" class="stat-box-value">0 wpm</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box-label">raw</span>
+                    <span id="raw-cpm" class="stat-box-value">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box-label">characters</span>
+                    <span id="char-count" class="stat-box-value">0/0/0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box-label">consistency</span>
+                    <span id="consistency" class="stat-box-value">0%</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box-label">time</span>
+                    <span id="time-taken" class="stat-box-value">0s</span>
+                </div>
+            </div>
+        </div>
     </div>
     
+    <script src="chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

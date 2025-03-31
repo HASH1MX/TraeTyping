@@ -19,7 +19,7 @@ A typing speed test application that measures your typing speed and accuracy.
 
 ## Live Demo
 
-You can try the application at: [GitHub Pages Link] (once deployed)
+You can try the application at: [https://hash1mx.github.io/TraeTyping/](https://hash1mx.github.io/TraeTyping/)
 
 ## Development
 

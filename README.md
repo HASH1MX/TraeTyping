@@ -3,7 +3,9 @@
 A typing speed test application that measures your typing speed and accuracy.
 
 ## Features
+ 
 
+  ONE OF MY BEST AND FAVOURITE PROJECT I HAVE DONE.
 - Multiple time settings (15s, 30s, 60s, 120s)
 - Real-time WPM (Words Per Minute) calculation
 - Accuracy tracking

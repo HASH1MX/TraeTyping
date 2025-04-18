@@ -34,7 +34,7 @@ You can Try the application at: [https://hash1mx.github.io/TraeTyping/](https://
 
 ### Setup
 
-1. Clone the repository
+1. Clone the repository.. ezzzz
 2. Install dependencies:
    ```
    npm install

@@ -11,8 +11,7 @@ A typing speed test application that measures your typing speed and accuracy.
 - Accuracy tracking
 - Performance chart
 - Detailed statistics
-- Detailed statistics
-- Nice
+- Nice GUI
 ## Technologies Used
 
 - HTML5

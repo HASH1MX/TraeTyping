@@ -12,28 +12,32 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     font-family: 'Roboto Mono', 'Lexend Deca', monospace;
-    padding-top: 32px;
+    padding: 0;
+    overflow: hidden;
 }
 
 .container {
     width: 100vw;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    height: 100vh;
+    min-height: 0;
 }
 
 header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 0;
     width: 100%;
+    gap: 24px;
 }
 
 .logo {
@@ -104,11 +108,12 @@ button:hover {
 .stats {
     display: flex;
     gap: 32px;
-    margin-bottom: 24px;
+    margin-bottom: 0;
     justify-content: center;
     font-size: 22px;
     font-family: 'Roboto Mono', 'Lexend Deca', monospace;
     color: #c7e6d7;
+    margin-top: 0;
 }
 
 #language {
@@ -120,23 +125,25 @@ button:hover {
 }
 
 .text-display {
-    font-size: 1.7rem;
-    line-height: 2.3rem;
-    margin-bottom: 56px;
-    min-height: 100px;
+    font-size: 2.2rem;
+    line-height: 2.7rem;
+    margin-bottom: 24px;
+    min-height: 60px;
     word-wrap: break-word;
-    text-align: center;
+    white-space: pre-wrap;
+    text-align: left;
     font-family: 'Roboto Mono', monospace;
-    padding: 32px 32px 24px 32px;
+    padding: 16px 32px 8px 32px;
     border-radius: 16px;
     color: #7fffd4;
     background: rgba(35, 39, 47, 0.2);
     box-shadow: 0 4px 32px rgba(0,0,0,0.10);
-    max-width: 700px;
+    max-width: 1100px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     backdrop-filter: blur(2px);
+    overflow: hidden;
 }
 
 .word {
@@ -303,21 +310,22 @@ button:hover {
 }
 
 /* Responsive design */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
     .container {
         width: 98vw;
+        max-width: 98vw;
     }
     .text-display {
         font-size: 1.1rem;
-        padding: 16px 8px 8px 8px;
+        padding: 8px 4px 4px 4px;
         max-width: 98vw;
     }
     .virtual-keyboard {
-        gap: 10px;
+        gap: 8px;
         max-width: 98vw;
     }
     .keyboard-row {
-        gap: 8px;
+        gap: 4px;
     }
     .keyboard-key {
         min-width: 32px;
@@ -384,16 +392,16 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 56px auto 0 auto;
-    gap: 24px;
+    margin: 0 auto 0 auto;
+    gap: 18px;
     user-select: none;
     pointer-events: none;
-    max-width: 700px;
+    max-width: 900px;
     width: 100%;
 }
 .keyboard-row {
     display: flex;
-    gap: 24px;
+    gap: 18px;
     justify-content: center;
     pointer-events: none;
 }
@@ -402,13 +410,13 @@ button:hover {
     color: #c7e6d7;
     border: none;
     border-radius: 14px;
-    min-width: 64px;
-    min-height: 64px;
-    font-size: 2rem;
+    min-width: 56px;
+    min-height: 56px;
+    font-size: 1.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 4px;
+    margin: 0 2px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.10);
     transition: background 0.1s, color 0.1s, box-shadow 0.1s;
     outline: none;
@@ -423,8 +431,8 @@ button:hover {
     z-index: 1;
 }
 .keyboard-key.default-key {
-    min-width: 260px;
-    font-size: 1.2rem;
+    min-width: 180px;
+    font-size: 1.1rem;
     background: #23272f;
     color: #c7e6d7;
 }

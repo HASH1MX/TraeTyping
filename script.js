@@ -122,15 +122,12 @@ function generateWords(count) {
 // Display words in the text display
 function displayWords() {
     textDisplay.innerHTML = '';
-    // Show a window of words around the current word (e.g., 3 lines of 11 words)
+    // Show a window of words around the current word (3 lines of 11 words)
     const WORDS_PER_LINE = 11;
     const LINES = 3;
     const WINDOW_SIZE = WORDS_PER_LINE * LINES;
-    // Center the window on the current word, but keep it in bounds
-    let start = Math.max(0, wordIndex - Math.floor(WINDOW_SIZE / 2));
-    if (start + WINDOW_SIZE > words.length) {
-        start = Math.max(0, words.length - WINDOW_SIZE);
-    }
+    // Always show a window that includes the current word, starting at a multiple of WORDS_PER_LINE
+    let start = Math.floor(wordIndex / WORDS_PER_LINE) * WORDS_PER_LINE;
     let end = Math.min(words.length, start + WINDOW_SIZE);
     for (let index = start; index < end; index++) {
         const word = words[index];

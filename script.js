@@ -375,11 +375,14 @@ textDisplay.addEventListener('click', () => {
     inputField.focus();
 });
 
-// Prevent default behavior for some keys
-inputField.addEventListener('keydown', (e) => {
+// Global Tab key handler to restart test from anywhere
+window.addEventListener('keydown', (e) => {
     if (e.key === 'Tab') {
         e.preventDefault();
-        restartButton.click();
+        if (isGameActive) {
+            clearInterval(timerInterval);
+        }
+        initGame();
     }
 });
 

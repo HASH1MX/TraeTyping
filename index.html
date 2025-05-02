@@ -23,6 +23,12 @@
                     <button id="time-60" class="time-btn active">60</button>
                     <button id="time-120" class="time-btn">120</button>
                 </div>
+                <button id="settings-btn" class="settings-btn" title="Settings">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z" stroke="#fff" stroke-width="2"/>
+                        <path d="M19.4 15A1.65 1.65 0 0 0 21 13.35V10.65A1.65 1.65 0 0 0 19.4 9L17.55 8.13A1.65 1.65 0 0 1 16.87 6.45L17.74 4.6A1.65 1.65 0 0 0 16.13 3L13.35 3A1.65 1.65 0 0 0 12 4.6L11.13 6.45A1.65 1.65 0 0 1 9.45 7.13L7.6 6.26A1.65 1.65 0 0 0 6 7.87V10.65A1.65 1.65 0 0 0 7.6 12L9.45 12.87A1.65 1.65 0 0 1 10.13 14.55L9.26 16.4A1.65 1.65 0 0 0 10.87 18L13.65 18A1.65 1.65 0 0 0 15 16.4L15.87 14.55A1.65 1.65 0 0 1 17.55 13.87L19.4 15Z" stroke="#fff" stroke-width="2"/>
+                    </svg>
+                </button>
             </div>
         </header>
         
@@ -37,6 +43,7 @@
             <div id="text-display" class="text-display"></div>
             <input type="text" id="input-field" class="input-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
         </div>
+        <div id="virtual-keyboard" class="virtual-keyboard"></div>
         
         <div class="controls">
             <button id="restart">restart</button>
@@ -83,6 +90,15 @@
                     <span id="time-taken" class="stat-box-value">0s</span>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="settings-modal">
+        <div class="settings-modal-content">
+            <span id="close-settings" class="close-settings">&times;</span>
+            <h2>Settings</h2>
+            <p>Settings will be added here later.</p>
         </div>
     </div>
     

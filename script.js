@@ -16,6 +16,10 @@ const rawCpmElement = document.getElementById('raw-cpm');
 const charCountElement = document.getElementById('char-count');
 const consistencyElement = document.getElementById('consistency');
 const timeTakenElement = document.getElementById('time-taken');
+const virtualKeyboard = document.getElementById('virtual-keyboard');
+const settingsBtn = document.getElementById('settings-btn');
+const settingsModal = document.getElementById('settings-modal');
+const closeSettings = document.getElementById('close-settings');
 
 // Game variables
 let words = [];
@@ -44,6 +48,25 @@ const commonWords = [
     'time', 'just', 'him', 'know', 'take', 'people', 'into', 'year', 'your', 'good', 'some', 'could', 'them', 'see', 'other',
     'than', 'then', 'now', 'look', 'only', 'come', 'its', 'over', 'think', 'also', 'back', 'after', 'use', 'two', 'how',
     'our', 'work', 'well', 'way', 'even', 'new', 'want', 'because', 'any', 'these', 'give', 'day', 'most', 'us'
+];
+
+// Keyboard layout (Monkeytype style)
+const keyboardLayout = [
+  [
+    { key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }, { key: '7' }, { key: '8' }, { key: '9' }, { key: '0' }, { key: '-' }, { key: '=' }
+  ],
+  [
+    { key: 'q' }, { key: 'w' }, { key: 'e' }, { key: 'r' }, { key: 't' }, { key: 'y' }, { key: 'u' }, { key: 'i' }, { key: 'o' }, { key: 'p' }, { key: '[' }, { key: ']' }
+  ],
+  [
+    { key: 'a' }, { key: 's' }, { key: 'd' }, { key: 'f' }, { key: 'g' }, { key: 'h' }, { key: 'j' }, { key: 'k' }, { key: 'l' }, { key: ';' }, { key: '\'' }
+  ],
+  [
+    { key: 'z' }, { key: 'x' }, { key: 'c' }, { key: 'v' }, { key: 'b' }, { key: 'n' }, { key: 'm' }, { key: ',' }, { key: '.' }, { key: '/' }
+  ],
+  [
+    { key: 'default', label: 'default', class: 'default-key' }
+  ]
 ];
 
 // Initialize the game
@@ -284,40 +307,44 @@ document.getElementById('time-15').addEventListener('click', () => {
     timeLimit = 15;
     updateActiveTimeButton('time-15');
     timerElement.textContent = timeLimit;
+    generateWords(100 + Math.floor(Math.random() * 100)); // Ensure new random words
     if (isGameActive) {
         clearInterval(timerInterval);
-        initGame();
     }
+    initGame();
 });
 
 document.getElementById('time-30').addEventListener('click', () => {
     timeLimit = 30;
     updateActiveTimeButton('time-30');
     timerElement.textContent = timeLimit;
+    generateWords(100 + Math.floor(Math.random() * 100)); // Ensure new random words
     if (isGameActive) {
         clearInterval(timerInterval);
-        initGame();
     }
+    initGame();
 });
 
 document.getElementById('time-60').addEventListener('click', () => {
     timeLimit = 60;
     updateActiveTimeButton('time-60');
     timerElement.textContent = timeLimit;
+    generateWords(100 + Math.floor(Math.random() * 100)); // Ensure new random words
     if (isGameActive) {
         clearInterval(timerInterval);
-        initGame();
     }
+    initGame();
 });
 
 document.getElementById('time-120').addEventListener('click', () => {
     timeLimit = 120;
     updateActiveTimeButton('time-120');
     timerElement.textContent = timeLimit;
+    generateWords(100 + Math.floor(Math.random() * 100)); // Ensure new random words
     if (isGameActive) {
         clearInterval(timerInterval);
-        initGame();
     }
+    initGame();
 });
 
 // Function to update active time button
@@ -407,3 +434,61 @@ function showResults(wpm, accuracy, elapsedTime) {
     // Show results container
     resultsContainer.classList.add('show');
 }
+
+function renderVirtualKeyboard() {
+  virtualKeyboard.innerHTML = '';
+  keyboardLayout.forEach(row => {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'keyboard-row';
+    row.forEach(k => {
+      const keyDiv = document.createElement('div');
+      keyDiv.className = 'keyboard-key' + (k.class ? ' ' + k.class : '');
+      keyDiv.dataset.key = k.key;
+      keyDiv.textContent = k.label || k.key;
+      rowDiv.appendChild(keyDiv);
+    });
+    virtualKeyboard.appendChild(rowDiv);
+  });
+}
+
+function setKeyActive(key, active) {
+  // Handle both lower and upper case
+  const keyEls = Array.from(document.querySelectorAll('.keyboard-key'));
+  keyEls.forEach(el => {
+    if (
+      el.dataset.key === key.toLowerCase() ||
+      el.dataset.key === key.toUpperCase() ||
+      (key === ' ' && el.dataset.key === 'default')
+    ) {
+      if (active) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+    }
+  });
+}
+
+// Keyboard event listeners
+window.addEventListener('keydown', e => {
+  setKeyActive(e.key, true);
+});
+window.addEventListener('keyup', e => {
+  setKeyActive(e.key, false);
+});
+
+// Settings modal logic
+settingsBtn.addEventListener('click', () => {
+  settingsModal.classList.add('show');
+});
+closeSettings.addEventListener('click', () => {
+  settingsModal.classList.remove('show');
+});
+window.addEventListener('click', e => {
+  if (e.target === settingsModal) {
+    settingsModal.classList.remove('show');
+  }
+});
+
+// Render keyboard on load
+window.addEventListener('DOMContentLoaded', renderVirtualKeyboard);

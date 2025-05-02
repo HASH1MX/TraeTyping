@@ -7,12 +7,13 @@
 }
 
 body {
-    background-color: #f06292; /* Pink background similar to the screenshot */
-    color: #333333; /* Darker text color for better readability */
+    background-color: #19262c; /* Monkeytype dark background */
+    color: #b7c5d3;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Roboto Mono', 'Lexend Deca', monospace;
 }
 
 .container {
@@ -310,5 +311,115 @@ button:hover {
     
     .settings {
         margin-top: 10px;
+    }
+}
+
+.settings-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+.settings-btn:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* Settings Modal */
+.settings-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(25, 38, 44, 0.85);
+    justify-content: center;
+    align-items: center;
+}
+.settings-modal.show {
+    display: flex;
+}
+.settings-modal-content {
+    background: #222e36;
+    color: #b7c5d3;
+    padding: 32px 40px;
+    border-radius: 12px;
+    min-width: 320px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    position: relative;
+    text-align: center;
+}
+.close-settings {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 2rem;
+    color: #b7c5d3;
+    cursor: pointer;
+}
+
+/* Virtual Keyboard */
+.virtual-keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px auto 0 auto;
+    gap: 10px;
+    user-select: none;
+}
+.keyboard-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.keyboard-key {
+    background: #222e36;
+    color: #b7c5d3;
+    border: none;
+    border-radius: 10px;
+    min-width: 48px;
+    min-height: 48px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: background 0.1s, color 0.1s, box-shadow 0.1s;
+    outline: none;
+    font-family: 'Roboto Mono', monospace;
+    position: relative;
+}
+.keyboard-key.active, .keyboard-key:active {
+    background: #4dd0e1;
+    color: #222e36;
+    box-shadow: 0 0 16px #4dd0e1, 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 1;
+}
+.keyboard-key.default-key {
+    min-width: 180px;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: #1a232a;
+    color: #b7c5d3;
+}
+
+@media (max-width: 900px) {
+    .virtual-keyboard {
+        gap: 6px;
+    }
+    .keyboard-key {
+        min-width: 36px;
+        min-height: 36px;
+        font-size: 1rem;
+    }
+    .keyboard-key.default-key {
+        min-width: 100px;
     }
 }

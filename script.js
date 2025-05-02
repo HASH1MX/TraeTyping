@@ -122,19 +122,27 @@ function generateWords(count) {
 // Display words in the text display
 function displayWords() {
     textDisplay.innerHTML = '';
-    
-    words.forEach((word, index) => {
+    // Show a window of words around the current word (e.g., 3 lines of 11 words)
+    const WORDS_PER_LINE = 11;
+    const LINES = 3;
+    const WINDOW_SIZE = WORDS_PER_LINE * LINES;
+    // Center the window on the current word, but keep it in bounds
+    let start = Math.max(0, wordIndex - Math.floor(WINDOW_SIZE / 2));
+    if (start + WINDOW_SIZE > words.length) {
+        start = Math.max(0, words.length - WINDOW_SIZE);
+    }
+    let end = Math.min(words.length, start + WINDOW_SIZE);
+    for (let index = start; index < end; index++) {
+        const word = words[index];
         const wordElement = document.createElement('span');
         wordElement.classList.add('word');
         if (index === wordIndex) {
             wordElement.classList.add('current-word');
         }
-        
         // Split word into letters
         for (let i = 0; i < word.length; i++) {
             const letterElement = document.createElement('span');
             letterElement.classList.add('letter');
-            
             // Add correct/incorrect classes for the current word
             if (index === wordIndex) {
                 if (i < letterIndex) {
@@ -151,11 +159,9 @@ function displayWords() {
                     letterElement.classList.add('current-letter');
                 }
             }
-            
             letterElement.textContent = word[i];
             wordElement.appendChild(letterElement);
         }
-        
         // Add cursor after the last letter when the word is completed
         if (index === wordIndex && letterIndex === word.length) {
             const cursorElement = document.createElement('span');
@@ -163,9 +169,12 @@ function displayWords() {
             cursorElement.innerHTML = '&nbsp;'; // Add a space character
             wordElement.appendChild(cursorElement);
         }
-        
         textDisplay.appendChild(wordElement);
-    });
+        // Add a line break after every WORDS_PER_LINE words
+        if ((index - start + 1) % WORDS_PER_LINE === 0) {
+            textDisplay.appendChild(document.createElement('br'));
+        }
+    }
 }
 
 // Start the timer
@@ -437,16 +446,20 @@ function showResults(wpm, accuracy, elapsedTime) {
 
 function renderVirtualKeyboard() {
   virtualKeyboard.innerHTML = '';
-  keyboardLayout.forEach(row => {
+  keyboardLayout.forEach((row, rowIdx) => {
     const rowDiv = document.createElement('div');
     rowDiv.className = 'keyboard-row';
-    row.forEach(k => {
+    row.forEach((k, i) => {
       const keyDiv = document.createElement('div');
       keyDiv.className = 'keyboard-key' + (k.class ? ' ' + k.class : '');
       keyDiv.dataset.key = k.key;
       keyDiv.textContent = k.label || k.key;
       rowDiv.appendChild(keyDiv);
     });
+    // Center the last row (default key) by adding flex grow
+    if (rowIdx === keyboardLayout.length - 1) {
+      rowDiv.style.justifyContent = 'center';
+    }
     virtualKeyboard.appendChild(rowDiv);
   });
 }

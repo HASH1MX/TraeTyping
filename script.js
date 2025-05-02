@@ -167,10 +167,7 @@ function displayWords() {
             wordElement.appendChild(cursorElement);
         }
         textDisplay.appendChild(wordElement);
-        // Add a line break after every WORDS_PER_LINE words
-        if ((index - start + 1) % WORDS_PER_LINE === 0) {
-            textDisplay.appendChild(document.createElement('br'));
-        }
+        // No <br> after every N words; let browser wrap naturally
     }
 }
 

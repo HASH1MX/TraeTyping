@@ -379,11 +379,13 @@ button:hover {
     margin: 40px auto 0 auto;
     gap: 16px;
     user-select: none;
+    pointer-events: none;
 }
 .keyboard-row {
     display: flex;
     gap: 16px;
     justify-content: center;
+    pointer-events: none;
 }
 .keyboard-key {
     background: #23272f;
@@ -402,6 +404,7 @@ button:hover {
     outline: none;
     font-family: 'Roboto Mono', monospace;
     position: relative;
+    pointer-events: none;
 }
 .keyboard-key.active, .keyboard-key:active {
     background: #7fffd4;

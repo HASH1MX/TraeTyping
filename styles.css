@@ -101,7 +101,7 @@ button:hover {
 
 .time-buttons {
     display: flex;
-    gap: 40px;
+    gap: 32px;
 }
 
 .time-btn {
@@ -141,7 +141,7 @@ button:hover {
 }
 
 .text-display {
-    font-size: 2.2rem;
+    font-size: 2rem;
     line-height: 2.7rem;
     height: 8.1rem;
     overflow: hidden;
@@ -155,7 +155,7 @@ button:hover {
     background: none;
     box-shadow: none;
     border-radius: 0;
-    max-width: 1100px;
+    max-width: 900px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -165,7 +165,7 @@ button:hover {
 
 .word {
     display: inline;
-    margin: 0;
+    margin-right: 0.7em;
 }
 
 .current-word {
@@ -415,6 +415,7 @@ button:hover {
     max-width: 900px;
     width: 100%;
     margin-bottom: 0;
+    margin-top: 32px;
 }
 .keyboard-row {
     display: flex;

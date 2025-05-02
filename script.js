@@ -167,7 +167,10 @@ function displayWords() {
             wordElement.appendChild(cursorElement);
         }
         textDisplay.appendChild(wordElement);
-        // No <br> after every N words; let browser wrap naturally
+        // Add a space after each word except the last in the window
+        if (index < end - 1) {
+            textDisplay.appendChild(document.createTextNode(' '));
+        }
     }
 }
 

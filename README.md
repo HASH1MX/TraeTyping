@@ -19,7 +19,7 @@ A typing speed test application that measures your typing speed and accuracy.
 - JavaScript
 - Vite (for building and development)
 
-## Live Dem
+## Live Demo
 
 You can Try the application at: [https://hash1mx.github.io/TraeTyping/](https://hash1mx.github.io/TraeTyping/)
 

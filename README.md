@@ -2,7 +2,7 @@
 
 A typing speed test application that measures your typing speed and accuracy.
 
-## Featuress
+## Featuresss
  
 
   ONE OF MY BEST AND FAVOURITE PROJECT I HAVE DONE.
